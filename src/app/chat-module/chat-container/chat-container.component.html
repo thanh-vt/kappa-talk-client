@@ -1,0 +1,24 @@
+<div class="row " style="height: 90vh">
+  <div class="col-sm-3 border border-dark">
+    <app-user-list [userList]="userList" (enterChatEvent)="onEnterChat($event)"></app-user-list>
+  </div>
+  <div class="col-sm-6 border border-dark p-0">
+    <div class="d-flex flex-column justify-content-between h-100">
+      <div class="p-3">
+        <app-chat-content [chatInfo]="chatInfo" [username]="username" [recipient]="recipient"
+                          [nextMessage]="nextMessage">
+        </app-chat-content>
+      </div>
+      <div class="p-3">
+        <app-chat-panel [chatInfo]="chatInfo" [state]="state" [username]="username" [recipient]="recipient">
+        </app-chat-panel>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 border border-dark">
+    <app-chat-profile (activateEvent)="onActivate($event)" [connectionStatus]="connectionStatus"
+                      (deactivateEvent)="onDeactivate()"
+                      (forceDisconnectEvent)="onForceDisconnect()">
+    </app-chat-profile>
+  </div>
+</div>
