@@ -5,4 +5,6 @@ export interface ChatInfoModel {
   startTime: Date;
   messageBlockList: MessageBlockModel[];
   users: string[];
+  sender?: string;
+  receiver?: string;
 }

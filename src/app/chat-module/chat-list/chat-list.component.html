@@ -1,8 +1,0 @@
-<ul class="list-group">
-  <ng-container *ngFor="let userStatus of userList | keyvalue">
-    <li class="list-group-item list-group-item-action" *ngIf="userStatus.value"
-        (click)="enterChat(userStatus.key)">
-      <span>{{userStatus.key}}</span>&nbsp;
-    </li>
-  </ng-container>
-</ul>

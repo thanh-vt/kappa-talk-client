@@ -1,1 +1,6 @@
-listen       ${NGINX_PORT};
+server {
+	listen       ${NGINX_PORT};
+	root /usr/share/nginx/html;
+    index index.html index.htm;
+	try_files $uri $uri/ /index.html;
+}

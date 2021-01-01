@@ -10,7 +10,7 @@ import {ChatInfoModel} from '../model/chat-info.model';
 export class ChatService {
 
   public userSubject: Subject<string> = new Subject<string>();
-  public chatInfoSubject: Subject<ChatInfoModel> = new Subject<ChatInfoModel>();
+  // public chatInfoSubject: Subject<ChatInfoModel> = new Subject<ChatInfoModel>();
 
   constructor(private http: HttpClient) {
   }

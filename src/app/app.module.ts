@@ -7,6 +7,9 @@ import {InjectableRxStompConfig, RxStompService} from '@stomp/ng2-stompjs';
 import {RxStompConfig} from '@stomp/rx-stomp/esm6';
 import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './shared/shared.module';
+import {StoreModule} from '@ngrx/store';
+import {reducers} from './store';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import {SharedModule} from './shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(),
     SharedModule
   ],
   providers: [

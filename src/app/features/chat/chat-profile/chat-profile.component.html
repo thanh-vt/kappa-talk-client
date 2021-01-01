@@ -1,0 +1,13 @@
+<div class="d-flex">
+  <!--  <span>{{serverHeaders$|async}}</span>-->
+  <button (click)="activate()" class="btn btn-success m-1">Activate</button>
+  <button (click)="deactivate()" class="btn btn-warning m-1">DeActivate</button>
+  <button (click)="forceDisconnect()" class="btn btn-danger m-1">Simulate Error</button>
+</div>
+<div class="form-group row">
+  <label class="col-3 col-form-label" for="username">Username</label>
+  <input [(ngModel)]="username" class="form-control col-6" id="username" type="text">
+  <div class="col-2 d-flex justify-content-center align-items-center">
+    <div class="status-{{connectionStatus$ | async}} rounded-circle status-indicator"></div>
+  </div>
+</div>

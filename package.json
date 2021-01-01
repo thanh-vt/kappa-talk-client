@@ -1,5 +1,5 @@
 {
-  "name": "vengeance-chat-client",
+  "name": "kappa-talk-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,6 +19,12 @@
     "@angular/platform-browser": "~11.0.4",
     "@angular/platform-browser-dynamic": "^11.0.4",
     "@angular/router": "~11.0.4",
+    "@ngrx/component-store": "^10.1.2",
+    "@ngrx/data": "^10.1.2",
+    "@ngrx/effects": "^10.1.2",
+    "@ngrx/entity": "^10.1.2",
+    "@ngrx/router-store": "^10.1.2",
+    "@ngrx/store": "^10.1.2",
     "@stomp/ng2-stompjs": "^8.0.0",
     "@stomp/rx-stomp": "^1.0.1",
     "@stomp/stompjs": "^6.0.0",
@@ -32,13 +38,24 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1100.4",
+    "@angular-eslint/builder": "1.0.0",
+    "@angular-eslint/eslint-plugin": "1.0.0",
+    "@angular-eslint/eslint-plugin-template": "1.0.0",
+    "@angular-eslint/schematics": "1.0.0",
+    "@angular-eslint/template-parser": "1.0.0",
     "@angular/cli": "^11.0.4",
     "@angular/compiler-cli": "^11.0.4",
     "@angular/language-service": "~11.0.4",
+    "@ngrx/schematics": "^10.1.2",
     "@types/jasmine": "~3.6.2",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "~14.14.12",
-    "codelyzer": "^6.0.1",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsdoc": "30.7.6",
+    "eslint-plugin-prefer-arrow": "1.2.2",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~6.0.0",
     "karma": "~5.2.3",
@@ -48,7 +65,6 @@
     "karma-jasmine-html-reporter": "^1.5.4",
     "protractor": "~7.0.0",
     "ts-node": "~9.1.1",
-    "tslint": "~5.20.1",
     "typescript": "^4.0.5"
   }
 }

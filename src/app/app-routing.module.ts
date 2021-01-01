@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 
 const routes: Routes = [
   {
-    path: 'chat-client',
-    loadChildren: () => import('./chat-module/chat-module.module').then(m => m.ChatModuleModule)
+    path: 'public',
+    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
   {
-    path: '',
+    path: 'features',
+    loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)
+  },
+  {
+    path: '**',
     pathMatch: 'full',
-    redirectTo: 'chat-client'
+    redirectTo: 'features'
   }
 ];
 
@@ -18,4 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

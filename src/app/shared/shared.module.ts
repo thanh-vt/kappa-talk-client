@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ScrollToBottomDirective} from './directive/scroll-to-bottom.directive';
-
 
 
 @NgModule({
@@ -14,4 +13,5 @@ import {ScrollToBottomDirective} from './directive/scroll-to-bottom.directive';
     CommonModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

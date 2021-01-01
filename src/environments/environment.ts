@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  // wsEndpoint: 'http://localhost:8080/vengeance/ws',
-  // apiEndpoint: 'http://localhost:8080/vengeance'
-  wsEndpoint: 'https://localhost:8901/vengeance/ws',
-  apiEndpoint: 'https://localhost:8901/vengeance/'
+  clientId: 'fooClientIdPassword',
+  clientSecret: 'secret',
+  authEndpoint: `http://${window.location.hostname}:8081/lambda-auth`,
+  wsEndpoint: `https://${window.location.hostname}:8901/kappa-talk/ws`,
+  apiEndpoint: `https://${window.location.hostname}:8901/kappa-talk`
 };
 
 /*

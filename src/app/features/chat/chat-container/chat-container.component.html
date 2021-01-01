@@ -1,0 +1,23 @@
+<div class="row " style="height: 90vh">
+  <div class="col-sm-3 border border-dark">
+    <app-user-list [userName]="username" [userList]="userList"></app-user-list>
+  </div>
+  <div class="col-sm-6 border border-dark p-0">
+    <div class="d-flex flex-column justify-content-between h-100">
+      <div class="p-3">
+        <app-chat-content [username]="username">
+        </app-chat-content>
+      </div>
+      <div class="p-3">
+        <app-chat-panel [state]="state">
+        </app-chat-panel>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 border border-dark">
+    <app-chat-profile (activateEvent)="onActivate($event)"
+                      (deactivateEvent)="onDeactivate()"
+                      (forceDisconnectEvent)="onForceDisconnect()">
+    </app-chat-profile>
+  </div>
+</div>

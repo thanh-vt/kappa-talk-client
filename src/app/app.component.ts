@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Welcome to Vengeance Chatroom';
+  title = 'Welcome to Kappa Talk';
 }

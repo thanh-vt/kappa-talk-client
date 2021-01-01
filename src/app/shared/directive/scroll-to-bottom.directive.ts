@@ -1,7 +1,9 @@
 import {AfterViewInit, Directive, ElementRef, Input, OnChanges, OnDestroy} from '@angular/core';
 
 declare global {
-  interface Window { ResizeObserver: any; }
+  interface Window {
+    ResizeObserver: any;
+  }
 }
 
 @Directive({
