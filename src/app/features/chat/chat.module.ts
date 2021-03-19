@@ -13,6 +13,7 @@ import {chatFeatureKey} from '../store/chat/chat.state';
 import {chatReducer} from '../store/chat/chat.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ChatEffects} from '../store/chat/chat.effects';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {ChatEffects} from '../store/chat/chat.effects';
     ReactiveFormsModule,
     SharedModule,
     StoreModule.forFeature(chatFeatureKey, chatReducer),
-    EffectsModule.forFeature([ChatEffects])
+    EffectsModule.forFeature([ChatEffects]),
+    NgbDropdownModule
   ]
 })
 export class ChatModule {

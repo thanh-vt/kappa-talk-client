@@ -1,17 +1,22 @@
 <div class="wrapper fadeInDown">
   <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img alt="User Icon" id="icon" src="http://danielzawadzki.com/codepen/01/icon.svg"/>
-    </div>
+<!--    <div class="fadeIn first">-->
+<!--      <img alt="User Icon" id="icon" src="http://danielzawadzki.com/codepen/01/icon.svg"/>-->
+<!--    </div>-->
 
     <!-- Login Form -->
-    <form>
-      <input class="fadeIn second" id="login" name="login" placeholder="login" type="text">
-      <input class="fadeIn third" id="password" name="login" placeholder="password" type="text">
-      <input class="fadeIn fourth" type="submit" value="Log In">
+    <form [formGroup]="loginForm">
+      <label for="login">Username</label>
+      <input class="fadeIn second" id="login" [formControlName]="'username'"
+                                        placeholder="Enter username/email" type="text">
+      <label for="password">Password</label>
+      <input class="fadeIn third" id="password" [formControlName]="'password'"
+                                           placeholder="Enter password" type="password">
+      <label class="d-block">
+        <input type="checkbox" id="rememberMe" [formControlName]="'rememberMe'">
+        Remember Me
+      </label>
+      <input class="fadeIn fourth" type="button" (click)="login()" value="Log In">
     </form>
 
     <!-- Remind Passowrd -->

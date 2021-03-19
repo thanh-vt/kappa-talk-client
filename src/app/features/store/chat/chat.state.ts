@@ -11,13 +11,15 @@ export interface ChatState {
   displayStatus: DisplayStatus;
   selectedChatTab: ChatInfoModel;
   chatTabList: ChatInfoModel[];
+  userList: any;
 }
 
 export const initialState: ChatState = {
   connectionStatus: 'CLOSED',
   displayStatus: 'offline',
   selectedChatTab: null,
-  chatTabList: []
+  chatTabList: [],
+  userList: {}
 };
 
 

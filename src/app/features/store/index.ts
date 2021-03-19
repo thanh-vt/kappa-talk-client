@@ -3,8 +3,6 @@ import {createFeatureSelector} from '@ngrx/store';
 import {settingFeatureKey, SettingState} from './setting/setting.state';
 import {RootState} from '../../store';
 
-export const featureKey = 'features';
-
 export interface FeatureRootState extends RootState {
   [chatFeatureKey]: ChatState;
   [settingFeatureKey]: SettingState;

@@ -16,5 +16,11 @@ export const selectChatInfo = createSelector(
   chat => chat.selectedChatTab
 );
 
+export const selectUserList = createSelector(
+  chatFeatureSelector,
+  chat => chat.userList
+);
+
+
 
 

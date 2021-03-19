@@ -7,7 +7,7 @@
     <ul class="pl-1" style="list-style-type:none;">
       <!-- we will use Angular binding to populate list of messages -->
       <ng-container *ngFor="let block of (chatInfo$ | async).messageBlockList">
-        <li *ngFor="let message of block.messages" [class.text-right]="message.from == username"
+        <li *ngFor="let message of block.messages" [class.text-right]="message.from == (userToken$ | async)?.user_name"
             class="message">
           <span>{{message.from}}</span> - <span>{{message.content}}</span><br>
           <small>{{message.timestamp | date: 'fullTime'}}</small>

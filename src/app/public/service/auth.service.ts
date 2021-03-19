@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {finalize, map} from 'rxjs/operators';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {UserToken} from '../model/user-token';
+import {AuthState} from '../../store/auth/auth.state';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-
-  currentUserTokenSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(null);
 
   constructor(private http: HttpClient) {
   }
@@ -24,7 +24,7 @@ export class AuthService {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       Authorization: 'Basic ' + btoa(`${environment.clientId}:${environment.clientSecret}`)
     });
-    return this.http.post<UserToken>(`${environment.authEndpoint}/oauth/token`, params, {headers})
+    return this.http.post<AuthState>(`${environment.authEndpoint}/oauth/token`, params, {headers})
     .pipe(map(userToken => {
       if (rememberMe) {
         localStorage.setItem('userToken', JSON.stringify(userToken));
@@ -33,7 +33,6 @@ export class AuthService {
         localStorage.setItem('sessionToken', JSON.stringify(userToken));
         sessionStorage.setItem('userToken', JSON.stringify(userToken));
       }
-      this.currentUserTokenSubject.next(userToken);
       return userToken;
     }));
   }
@@ -41,12 +40,12 @@ export class AuthService {
   logout() {
     let token: string;
     if (localStorage.getItem('userToken')) {
-      token = (JSON.parse(localStorage.getItem('userToken')) as UserToken).access_token;
+      token = (JSON.parse(localStorage.getItem('userToken')) as AuthState).access_token;
     }
     if (sessionStorage.getItem('userToken')) {
-      token = (JSON.parse(sessionStorage.getItem('userToken')) as UserToken).access_token;
+      token = (JSON.parse(sessionStorage.getItem('userToken')) as AuthState).access_token;
     }
-    this.http.post<Observable<string>>(`${environment.authEndpoint}/tokens/revoke/${token}`, null)
+    this.http.delete<Observable<string>>(`${environment.authEndpoint}/oauth/token/revoke/${token}`)
     .pipe(finalize(() => {
       localStorage.removeItem('userToken');
       localStorage.removeItem('rememberMe');
@@ -58,9 +57,6 @@ export class AuthService {
       },
       error => {
         console.log(error);
-      },
-      () => {
       });
-    this.currentUserTokenSubject.next(null);
   }
 }

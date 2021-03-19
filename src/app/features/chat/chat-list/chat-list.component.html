@@ -1,5 +1,5 @@
 <ul class="list-group">
-  <ng-container *ngFor="let userStatus of userList | keyvalue">
+  <ng-container *ngFor="let userStatus of (userList$ | async) | keyvalue">
     <li (click)="enterChat(userStatus.key)" *ngIf="userStatus.value"
         class="list-group-item list-group-item-action">
       <span>{{userStatus.key}}</span>&nbsp;

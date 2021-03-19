@@ -1,29 +1,33 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {ChatActions} from '../../store/chat/chat.actions';
+import {CHAT_ACTIONS} from '../../store/chat/chat.actions';
+import {Observable} from 'rxjs';
+import {selectUserList} from '../../store/chat/chat.selectors';
+import {AuthState} from '../../../store/auth/auth.state';
+import {selectUserToken} from '../../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.scss']
 })
-export class ChatListComponent implements OnInit, OnDestroy {
+export class ChatListComponent implements OnDestroy {
 
-  @Input() userList: any = {};
-  @Input() userName: string;
+  userList: any = {};
+  userList$: Observable<any> = this.store.select(selectUserList);
+  userName: string;
+  userToken$: Observable<AuthState> = this.store.select(selectUserToken);
 
   constructor(private store: Store) {
-
+    this.userToken$.subscribe(next => {
+      this.userName = next.user_name;
+    });
   }
-
-  ngOnInit(): void {
-  }
-
 
   ngOnDestroy(): void {
   }
 
   enterChat(username: any) {
-    this.store.dispatch(ChatActions.selectChat({sender: this.userName, receiver: username}));
+    this.store.dispatch(CHAT_ACTIONS.selectChat({sender: (this.userName), receiver: username}));
   }
 }

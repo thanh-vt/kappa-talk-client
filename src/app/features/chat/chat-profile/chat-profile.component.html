@@ -1,13 +1,19 @@
-<div class="d-flex">
-  <!--  <span>{{serverHeaders$|async}}</span>-->
-  <button (click)="activate()" class="btn btn-success m-1">Activate</button>
-  <button (click)="deactivate()" class="btn btn-warning m-1">DeActivate</button>
-  <button (click)="forceDisconnect()" class="btn btn-danger m-1">Simulate Error</button>
-</div>
-<div class="form-group row">
-  <label class="col-3 col-form-label" for="username">Username</label>
-  <input [(ngModel)]="username" class="form-control col-6" id="username" type="text">
-  <div class="col-2 d-flex justify-content-center align-items-center">
-    <div class="status-{{connectionStatus$ | async}} rounded-circle status-indicator"></div>
+<div class="form-group d-flex">
+  <div *ngIf="(userToken$ | async)?.user_name" ngbDropdown>
+    <button class="btn btn-sm btn-info my-1 mx-2 d-flex align-items-center" id="dropdownBasic1" ngbDropdownToggle>
+      <img [src]="(userToken$ | async)?.profile?.avatarUrl || defaultImageUrl" [alt]="(userToken$ | async)?.user_name"
+           [style]="{ width: '2rem', height: '2rem', background: 'gray'}"
+           class="d-inline-block border border-dark rounded-sm">
+      <!--      <span class="d-inline-block mx-1">{{ (userToken$ | async)?.user_name }}</span>-->
+      <span class="status-{{connectionStatus$ | async}} rounded-circle status-indicator d-inline-block ml-1"></span>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem>Profile</button>
+      <button ngbDropdownItem>Setting</button>
+      <button ngbDropdownItem (click)="logout()">Logout</button>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-center">
+    <h5>{{(userToken$ | async)?.profile?.lastName}}&nbsp;{{(userToken$ | async)?.profile?.firstName || (userToken$ | async)?.user_name}}</h5>
   </div>
 </div>

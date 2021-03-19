@@ -1,29 +1,41 @@
 import {createReducer, on} from '@ngrx/store';
 import {ChatState, ConnectionStatus, initialState} from './chat.state';
 import {StompConnectPayloadModel} from '../../../shared/model/stomp-connect-payload.model';
-import {ChatActions} from './chat.actions';
+import {CHAT_ACTIONS} from './chat.actions';
 import {MessageModel} from '../../../shared/model/message.model';
 import {MessageBlockModel} from '../../../shared/model/message-block.model';
 
 export const chatReducer = createReducer(
   initialState,
-  on(ChatActions.connectChat, (state, payload: StompConnectPayloadModel) => ({
+  on(CHAT_ACTIONS.connectChat, (state, payload: StompConnectPayloadModel) => ({
     ...state, connectionStatus: 'CONNECTING' as ConnectionStatus
   })),
-  on(ChatActions.connectChatSuccess, state => ({
+  on(CHAT_ACTIONS.connectChatSuccess, state => ({
     ...state, connectionStatus: 'OPEN' as ConnectionStatus
   })),
-  on(ChatActions.connectChatFailed, (state, {isLogout}) => ({
+  on(CHAT_ACTIONS.connectChatFailed, (state, {isLogout}) => ({
     ...state, connectionStatus: 'CLOSED' as ConnectionStatus
   })),
-  on(ChatActions.disconnectChat, state => ({
+  on(CHAT_ACTIONS.disconnectChat, state => ({
     ...state, connectionStatus: 'CLOSING' as ConnectionStatus
   })),
-  on(ChatActions.selectChat),
-  on(ChatActions.loadChat, (state, {chatInfo}) => ({
+  on(CHAT_ACTIONS.selectChat),
+  on(CHAT_ACTIONS.loadChat, (state, {chatInfo}) => ({
     ...state, selectedChatTab: chatInfo
   })),
-  on(ChatActions.loadNewMessage, (state, message) => {
+  on(CHAT_ACTIONS.updateOnlineUsers, (state, action) => ({
+    ...state, userList: { ...state.userList, [action.username]: true }
+  })),
+  on(CHAT_ACTIONS.updateOfflineUsers, (state, action) => ({
+    ...state, userList: { ...state.userList, [action.username]: false }
+  })),
+  on(CHAT_ACTIONS.cancelUsersUpdate, (state) => ({
+    ...state, userList: {}
+  })),
+  on(CHAT_ACTIONS.getOnlineUsersSuccess, (state, action) => ({
+    ...state, userList: action.users
+  })),
+  on(CHAT_ACTIONS.loadNewMessage, (state, message) => {
     let tmpState: ChatState = {...state};
     if (state.selectedChatTab && message.conversationId === state.selectedChatTab.conversationId) {
       const blockCount = state.selectedChatTab.messageBlockList.length;

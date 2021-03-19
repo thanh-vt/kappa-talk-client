@@ -27,8 +27,6 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "src/favicon.ico",
-              "src/vietnam.ico",
               "src/assets"
             ],
             "styles": [

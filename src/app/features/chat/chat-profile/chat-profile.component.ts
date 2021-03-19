@@ -1,9 +1,12 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {RootState} from '../../../store';
 import {Observable} from 'rxjs';
 import {ConnectionStatus} from '../../store/chat/chat.state';
 import {selectConnectionStatus} from '../../store/chat/chat.selectors';
+import {AUTH_ACTIONS} from '../../../store/auth/auth.actions';
+import {AuthState} from '../../../store/auth/auth.state';
+import {selectUserToken} from '../../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-chat-profile',
@@ -12,29 +15,15 @@ import {selectConnectionStatus} from '../../store/chat/chat.selectors';
 })
 export class ChatProfileComponent {
 
-  @Output() activateEvent: EventEmitter<string> = new EventEmitter<string>();
-  @Output() deactivateEvent: EventEmitter<void> = new EventEmitter<void>();
-  @Output() forceDisconnectEvent: EventEmitter<void> = new EventEmitter<void>();
   username: string;
-  // @Input() connectionStatus: string;
-  connectionStatus$: Observable<ConnectionStatus>;
+  userToken$: Observable<AuthState> = this.store.select(selectUserToken);
+  connectionStatus$: Observable<ConnectionStatus> = this.store.select(selectConnectionStatus);
+  defaultImageUrl = 'https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg';
 
-  constructor(private store: Store<RootState>) {
-    this.connectionStatus$ = this.store.select(selectConnectionStatus);
-  }
+  constructor(private store: Store<RootState>) { }
 
-  activate(): void {
-    if (this.username) {
-      this.activateEvent.emit(this.username);
-    }
-  }
-
-  deactivate(): void {
-    this.deactivateEvent.emit();
-  }
-
-  forceDisconnect(): void {
-    this.forceDisconnectEvent.emit();
+  logout() {
+    this.store.dispatch(AUTH_ACTIONS.logout());
   }
 
 }

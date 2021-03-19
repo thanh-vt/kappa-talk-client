@@ -1,12 +1,16 @@
-import {createAction} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
+import {LoginPayload} from '../../public/model/login-payload';
+import {AuthState} from './auth.state';
 
-export const AuthAction = {
-  login: createAction(
-    '[Auth] Login'
+export const AUTH_ACTIONS = {
+  login: createAction<any, any>(
+    '[Auth] Login',
+    props<{payload: LoginPayload}>()
   ),
 
-  loginSuccess: createAction(
-    '[Auth] LoginSuccess'
+  loginSuccess: createAction<any, any>(
+    '[Auth] LoginSuccess',
+    props<{payload: AuthState}>()
   ),
 
   loginFailed: createAction(

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  clientId: 'fooClientIdPassword',
-  clientSecret: 'secret',
-  authEndpoint: `http://${window.location.hostname}:8081/lambda-auth`,
+  clientId: 'kappa_talk',
+  clientSecret: 'k4pp4t4lk789',
+  authEndpoint: `https://${window.location.hostname}:8082/lambda-auth`,
   wsEndpoint: `https://${window.location.hostname}:8901/kappa-talk/ws`,
   apiEndpoint: `https://${window.location.hostname}:8901/kappa-talk`
 };

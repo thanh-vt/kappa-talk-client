@@ -1,28 +1,28 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {RxStompService} from '@stomp/ng2-stompjs';
+import {Component, OnInit} from '@angular/core';
 import {ChatService} from '../../../shared/service/chat.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageModel} from '../../../shared/model/message.model';
-import {RxStompState} from '@stomp/rx-stomp/esm6';
 import {ChatInfoModel} from '../../../shared/model/chat-info.model';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {selectChatInfo} from '../../store/chat/chat.selectors';
+import {selectChatInfo, selectConnectionStatus} from '../../store/chat/chat.selectors';
+import {ConnectionStatus} from '../../store/chat/chat.state';
+import {CHAT_ACTIONS} from '../../store/chat/chat.actions';
 
 @Component({
   selector: 'app-chat-panel',
   templateUrl: './chat-panel.component.html',
   styleUrls: ['./chat-panel.component.scss']
 })
-export class ChatPanelComponent implements OnInit, OnChanges {
-
-  @Input() state: number;
+export class ChatPanelComponent implements OnInit {
 
   chatInfo$: Observable<ChatInfoModel>;
   chatInfo: ChatInfoModel;
   chatForm: FormGroup;
 
-  constructor(private rxStompService: RxStompService, private userService: ChatService,
+  connectionStatus$: Observable<ConnectionStatus> = this.store.select(selectConnectionStatus);
+
+  constructor(private userService: ChatService,
               private fb: FormBuilder, private store: Store) {
     this.chatInfo$ = this.store.select(selectChatInfo);
     this.chatInfo$.subscribe(next => {
@@ -30,6 +30,13 @@ export class ChatPanelComponent implements OnInit, OnChanges {
     });
     this.chatForm = this.fb.group({
       content: ['', Validators.required],
+    });
+    this.connectionStatus$.subscribe(next => {
+      if ('OPEN' === next) {
+        this.chatForm.enable();
+      } else {
+        this.chatForm.disable();
+      }
     });
   }
 
@@ -46,16 +53,6 @@ export class ChatPanelComponent implements OnInit, OnChanges {
     // });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.state) {
-      if (RxStompState.OPEN === this.state) {
-        this.chatForm.enable();
-      } else {
-        this.chatForm.disable();
-      }
-    }
-  }
-
   sendMessage() {
     if (this.chatForm.invalid && !this.chatInfo) {
       return;
@@ -69,10 +66,10 @@ export class ChatPanelComponent implements OnInit, OnChanges {
       from: this.chatInfo.sender,
       to: this.chatInfo.receiver
     };
-    this.rxStompService.publish({
+    this.store.dispatch(CHAT_ACTIONS.sendMessage({
       destination: `/app/to-someone`,
-      body: JSON.stringify(message)
-    });
+      message: JSON.stringify(message)
+    }));
     this.chatForm.reset();
   }
 

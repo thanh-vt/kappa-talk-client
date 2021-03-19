@@ -7,7 +7,7 @@ import {FeaturesComponent} from './features.component';
   declarations: [FeaturesComponent],
   imports: [
     CommonModule,
-    FeaturesRoutingModule
+    FeaturesRoutingModule,
   ]
 })
 export class FeaturesModule {
