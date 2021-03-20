@@ -48,7 +48,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       if (next === 'OPEN' && this.username) {
         this.store.dispatch(CHAT_ACTIONS.getOnlineUsers());
         this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/user' + ChatConstant.privateChat }));
-        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: ChatConstant.onlineUser }));
+        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/user' + ChatConstant.onlineUser }));
         this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: ChatConstant.offlineUser }));
       }
     });

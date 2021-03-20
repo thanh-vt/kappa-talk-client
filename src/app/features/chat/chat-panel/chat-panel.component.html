@@ -3,7 +3,7 @@
   <div class="form-group row">
     <div class="col-sm-10 pr-0">
       <textarea [formControlName]="'content'" class="form-control" id="content"
-                type="text"></textarea>
+                type="text" (keydown.enter)="$event.target.blur()"></textarea>
     </div>
     <div class="col-sm-2 text-center">
       <button (click)="sendMessage()" class="btn btn-primary w-100" type="submit">Send</button>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {ChatService} from '../service/chat.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageModel} from '../../../shared/model/message.model';
@@ -38,6 +38,16 @@ export class ChatPanelComponent {
         this.chatForm.disable();
       }
     });
+  }
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event);
+    const enter = event.key;
+    if (enter === 'Enter') {
+      console.log('Enter!');
+      this.sendMessage();
+    }
   }
 
   sendMessage() {
