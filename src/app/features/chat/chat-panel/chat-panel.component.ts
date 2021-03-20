@@ -42,10 +42,8 @@ export class ChatPanelComponent {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event);
     const enter = event.key;
     if (enter === 'Enter') {
-      console.log('Enter!');
       this.sendMessage();
     }
   }
