@@ -1,5 +1,5 @@
 export interface MessageModel {
-  conversationId: number;
+  conversationId: string;
   content: any;
   timestamp: Date;
   from: string;

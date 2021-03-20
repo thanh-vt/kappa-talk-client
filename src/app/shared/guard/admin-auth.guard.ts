@@ -10,10 +10,10 @@ import {
   Router
 } from '@angular/router';
 import {AuthState} from '../../store/auth/auth.state';
-import {AuthService} from '../../public/service/auth.service';
+import {AuthService} from '../service/auth.service';
 import {Store} from '@ngrx/store';
 import {RootState} from '../../store';
-import {AUTH_ACTIONS} from '../../store/auth/auth.actions';
+import {AUTH_ACTIONS} from '../../store/auth/auth.action';
 
 
 @Injectable({

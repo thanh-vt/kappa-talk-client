@@ -14,6 +14,7 @@
     </div>
   </div>
   <div class="d-flex justify-content-center align-items-center">
-    <h5>{{(userToken$ | async)?.profile?.lastName}}&nbsp;{{(userToken$ | async)?.profile?.firstName || (userToken$ | async)?.user_name}}</h5>
+    <h5>{{(userToken$ | async)?.profile?.lastName}}&nbsp;{{(userToken$ | async)?.profile?.firstName ||
+    (userToken$ | async)?.user_name}}</h5>
   </div>
 </div>

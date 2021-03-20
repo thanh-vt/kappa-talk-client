@@ -3,5 +3,19 @@
        style="min-height: 10vh">
     <img alt="kappa-chat" [src]="'assets/icons/kappa-chat.png'" [width]="150" [height]="50"/>
   </div>
-  <router-outlet></router-outlet>
+  <ng-container [ngSwitch]="(util$ | async).status">
+    <ng-container *ngSwitchCase="'ACTIVE'">
+      <router-outlet></router-outlet>
+    </ng-container>
+    <ng-container *ngSwitchCase="'CONNECTING'">
+      <div class="d-flex justify-content-center align-items-center" style="height: 90vh">
+        <p>Waiting for service to be activated...</p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <div class="d-flex justify-content-center align-items-center" style="height: 90vh">
+        <p>Service unavailable!!!</p>
+      </div>
+    </ng-container>
+  </ng-container>
 </div>

@@ -6,9 +6,7 @@ import {LoginComponent} from './login/login.component';
 import {PublicComponent} from './public.component';
 import {ErrorComponent} from './error/error.component';
 import {AccessDeniedComponent} from './access-denied/access-denied.component';
-import {AuthService} from './service/auth.service';
 import {ReactiveFormsModule} from '@angular/forms';
-
 
 @NgModule({
   declarations: [LoginComponent, PublicComponent, ErrorComponent, AccessDeniedComponent],
@@ -16,8 +14,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     PublicRoutingModule,
     ReactiveFormsModule
-  ],
-  providers: [AuthService]
+  ]
 })
 export class PublicModule {
 }

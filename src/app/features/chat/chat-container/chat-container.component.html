@@ -7,7 +7,7 @@
       <div class="p-3">
         <app-chat-content></app-chat-content>
       </div>
-      <div class="p-3">
+      <div class="p-3" *ngIf="(connectionStatus$ | async) && (chatInfo$ | async)">
         <app-chat-panel></app-chat-panel>
       </div>
     </div>

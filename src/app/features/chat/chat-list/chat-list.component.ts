@@ -4,7 +4,7 @@ import {CHAT_ACTIONS} from '../../store/chat/chat.actions';
 import {Observable} from 'rxjs';
 import {selectUserList} from '../../store/chat/chat.selectors';
 import {AuthState} from '../../../store/auth/auth.state';
-import {selectUserToken} from '../../../store/auth/auth.selectors';
+import {selectUserToken} from '../../../store/auth/auth.selector';
 
 @Component({
   selector: 'app-user-list',

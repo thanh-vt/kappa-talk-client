@@ -4,9 +4,9 @@ import {RootState} from '../../../store';
 import {Observable} from 'rxjs';
 import {ConnectionStatus} from '../../store/chat/chat.state';
 import {selectConnectionStatus} from '../../store/chat/chat.selectors';
-import {AUTH_ACTIONS} from '../../../store/auth/auth.actions';
+import {AUTH_ACTIONS} from '../../../store/auth/auth.action';
 import {AuthState} from '../../../store/auth/auth.state';
-import {selectUserToken} from '../../../store/auth/auth.selectors';
+import {selectUserToken} from '../../../store/auth/auth.selector';
 
 @Component({
   selector: 'app-chat-profile',

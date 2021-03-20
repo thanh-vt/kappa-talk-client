@@ -14,6 +14,8 @@ import {chatReducer} from '../store/chat/chat.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ChatEffects} from '../store/chat/chat.effects';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {ChatService} from './service/chat.service';
+import {SocketClientService} from './service/socket-client.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,10 @@ import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
     StoreModule.forFeature(chatFeatureKey, chatReducer),
     EffectsModule.forFeature([ChatEffects]),
     NgbDropdownModule
+  ],
+  providers: [
+    ChatService,
+    SocketClientService
   ]
 })
 export class ChatModule {

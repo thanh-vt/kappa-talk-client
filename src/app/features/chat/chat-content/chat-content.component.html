@@ -3,7 +3,7 @@
     <h4 *ngIf="chatInfo$ | async">To: {{ (chatInfo$ | async).receiver }}</h4>
   </div>
   <div #scrollDir="appScrollToBottom" [stayAtBottom]="true" appScrollToBottom class="overflow-auto"
-       style="height: 30rem;">
+       style="height: 25rem;">
     <ul class="pl-1" style="list-style-type:none;">
       <!-- we will use Angular binding to populate list of messages -->
       <ng-container *ngFor="let block of (chatInfo$ | async).messageBlockList">

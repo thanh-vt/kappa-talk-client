@@ -1,7 +1,7 @@
 import {MessageBlockModel} from './message-block.model';
 
 export interface ChatInfoModel {
-  conversationId: number;
+  conversationId: string;
   startTime: Date;
   messageBlockList: MessageBlockModel[];
   users: string[];

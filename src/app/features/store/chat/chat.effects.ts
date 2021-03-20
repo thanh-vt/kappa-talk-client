@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {ChatService} from '../../../shared/service/chat.service';
+import {ChatService} from '../../chat/service/chat.service';
 import {catchError, map, mergeMap, tap} from 'rxjs/operators';
 import {EMPTY, of} from 'rxjs';
 import {CHAT_ACTIONS} from './chat.actions';
-import {SocketClientService} from '../../../shared/service/socket-client.service';
+import {SocketClientService} from '../../chat/service/socket-client.service';
 import {Store} from '@ngrx/store';
 import {RootState} from '../../../store';
 import {Message} from 'stompjs';
@@ -77,11 +77,8 @@ export class ChatEffects {
                 this.store.dispatch(CHAT_ACTIONS.updateOfflineUsers({username: message.body}));
               });
             break;
-          case '/user/queue/greetings':
-          case '/exchange/greetings':
-          case '/user/exchange/amq.direct/chat.message':
           default:
-            this.socketClientService.watch(action.channelName + '/' + action.username, (message => {
+            this.socketClientService.watch(action.channelName, (message => {
               const msg = JSON.parse(message.body);
               console.log('Message: ', msg);
               this.store.dispatch(CHAT_ACTIONS.loadNewMessage(msg));

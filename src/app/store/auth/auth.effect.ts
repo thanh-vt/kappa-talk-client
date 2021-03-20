@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap, tap} from 'rxjs/operators';
-import {AUTH_ACTIONS} from './auth.actions';
-import {AuthService} from '../../public/service/auth.service';
+import {AUTH_ACTIONS} from './auth.action';
+import {AuthService} from '../../shared/service/auth.service';
 import {Router} from '@angular/router';
 import {LoginPayload} from '../../public/model/login-payload';
 import {AuthState} from './auth.state';
@@ -44,6 +44,6 @@ export class AuthEffects {
     })
   );
 
-  constructor(private actions$: Actions, private authService: AuthService, private router: Router) {
-  }
+  constructor(private actions$: Actions, private authService: AuthService,
+              private router: Router) { }
 }

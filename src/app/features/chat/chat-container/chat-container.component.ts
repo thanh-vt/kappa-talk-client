@@ -1,12 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ChatService} from '../../../shared/service/chat.service';
+import {ChatService} from '../service/chat.service';
 import {ChatInfoModel} from '../../../shared/model/chat-info.model';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {RootState} from '../../../store';
 import {CHAT_ACTIONS} from '../../store/chat/chat.actions';
 import {selectChatInfo, selectConnectionStatus, selectUserList} from '../../store/chat/chat.selectors';
-import {SocketClientService} from '../../../shared/service/socket-client.service';
+import {SocketClientService} from '../service/socket-client.service';
+import {ConnectionStatus} from '../../store/chat/chat.state';
+import {ChatConstant} from '../constant/chat.constant';
 
 @Component({
   selector: 'app-chat-container',
@@ -20,6 +22,8 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   username: string;
   chatInfo: ChatInfoModel;
   chatInfo$: Observable<ChatInfoModel> = this.store.select<ChatInfoModel>(selectChatInfo);
+  connectionStatus: ConnectionStatus;
+  connectionStatus$: Observable<ConnectionStatus> = this.store.select(selectConnectionStatus);
 
   constructor(private userService: ChatService, private socketClientService: SocketClientService,
               private store: Store<RootState>) {
@@ -38,14 +42,14 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         }));
       }
     });
-    this.store.select(selectConnectionStatus).subscribe(next => {
+    this.connectionStatus$ = this.store.select(selectConnectionStatus);
+    this.connectionStatus$.subscribe(next => {
+      this.connectionStatus = next;
       if (next === 'OPEN' && this.username) {
         this.store.dispatch(CHAT_ACTIONS.getOnlineUsers());
-        // this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/user/exchange/amq.direct/chat.message' }));
-        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/exchange/greetings', username: this.username }));
-        // this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/user/queue/greetings' }));
-        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/topic/online-user' }));
-        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/topic/offline-user' }));
+        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: '/user' + ChatConstant.privateChat }));
+        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: ChatConstant.onlineUser }));
+        this.store.dispatch(CHAT_ACTIONS.subscribeChannel({ channelName: ChatConstant.offlineUser }));
       }
     });
   }

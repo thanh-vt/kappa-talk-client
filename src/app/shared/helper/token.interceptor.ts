@@ -17,7 +17,7 @@ import {environment} from '../../../environments/environment';
 import {Store} from '@ngrx/store';
 import {RootState} from '../../store';
 import {AuthState} from '../../store/auth/auth.state';
-import {AUTH_ACTIONS} from '../../store/auth/auth.actions';
+import {AUTH_ACTIONS} from '../../store/auth/auth.action';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -99,6 +99,8 @@ export class TokenInterceptor implements HttpInterceptor {
                     }));
                   }
                 ));
+            } else {
+              return throwError(new Error(error.message));
             }
           } else {
             return throwError(new Error(error));

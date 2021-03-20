@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ChatService} from '../../../shared/service/chat.service';
+import {Component} from '@angular/core';
+import {ChatService} from '../service/chat.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageModel} from '../../../shared/model/message.model';
 import {ChatInfoModel} from '../../../shared/model/chat-info.model';
@@ -14,7 +14,7 @@ import {CHAT_ACTIONS} from '../../store/chat/chat.actions';
   templateUrl: './chat-panel.component.html',
   styleUrls: ['./chat-panel.component.scss']
 })
-export class ChatPanelComponent implements OnInit {
+export class ChatPanelComponent {
 
   chatInfo$: Observable<ChatInfoModel>;
   chatInfo: ChatInfoModel;
@@ -32,7 +32,7 @@ export class ChatPanelComponent implements OnInit {
       content: ['', Validators.required],
     });
     this.connectionStatus$.subscribe(next => {
-      if ('OPEN' === next) {
+      if ('OPEN' === next && this.chatInfo) {
         this.chatForm.enable();
       } else {
         this.chatForm.disable();
@@ -40,21 +40,8 @@ export class ChatPanelComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // specific user topic
-    // this.topicSubscription = this.rxStompService.watch('/user/topic/greetings')
-    // .subscribe((message: Message) => {
-    //   this.receivedMessages.push(message.body);
-    // });
-    // general topic
-    // this.topicSubscription = this.rxStompService.watch('/topic/greetings')
-    // .subscribe((message: Message) => {
-    //   this.receivedMessages.push(message.body);
-    // });
-  }
-
   sendMessage() {
-    if (this.chatForm.invalid && !this.chatInfo) {
+    if (this.chatForm.invalid || !this.chatInfo) {
       return;
     }
     // eslint-disable-next-line new-parens
@@ -66,8 +53,9 @@ export class ChatPanelComponent implements OnInit {
       from: this.chatInfo.sender,
       to: this.chatInfo.receiver
     };
+    const dest = message.from === message.to ? `/app/to-self` : `/app/to-someone`;
     this.store.dispatch(CHAT_ACTIONS.sendMessage({
-      destination: `/app/to-someone`,
+      destination: dest,
       message: JSON.stringify(message)
     }));
     this.chatForm.reset();

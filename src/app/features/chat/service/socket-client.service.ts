@@ -1,13 +1,11 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import * as SockJS from 'sockjs-client';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {Client, CompatClient, Message} from '@stomp/stompjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class SocketClientService implements OnDestroy{
+@Injectable()
+export class SocketClientService implements OnDestroy {
   private client: CompatClient;
   private clientNew: Client;
   private connectionStatus: Subject<any> = new Subject();
@@ -40,19 +38,20 @@ export class SocketClientService implements OnDestroy{
     });
     this.clientNew.activate();
     this.clientNew.onConnect = (frame) => {
-      // Do something, all subscribes must be done is this callback
-      // This is needed because this will be executed after a (re)connect
       if (this.clientNew.connected) {
         // console.log(frame);
         this.connectionStatus.next();
       }
     };
-    this.clientNew.onStompError = (frame) => {
-      // Do something, all subscribes must be done is this callback
-      // This is needed because this will be executed after a (re)connect
-      // console.log(frame);
+    this.clientNew.onDisconnect = (frame) => {
       this.connectionStatus.error(frame.body);
     };
+    this.clientNew.onWebSocketClose = (event) => {
+      this.connectionStatus.error(event);
+    };
+    // this.clientNew.onStompError = (frame) => {
+    //   this.connectionStatus.error(frame.body);
+    // };
     return this.connectionStatus;
   }
 
