@@ -1,7 +1,12 @@
 # VengeanceChatClient
-Vengeance Chat Client
 
-Technology Stack:
+Chat Client
+
+## Deployment Url
+
+https://kappa-talk.netlify.app
+
+## Technology Stack:
 
 - Angular 11
 - Ngrx Store
